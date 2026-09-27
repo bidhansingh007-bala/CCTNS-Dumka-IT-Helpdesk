@@ -47,11 +47,8 @@ if st.button("🔍 Diagnose Problem", use_container_width=True):
     }
 
     try:
-        response = requests.post(
-            "http://127.0.0.1:8000/diagnose",
-            json=data
-        )
-
+	response = requests.post("https://cctns-dumka-it-helpdesk.onrender.com/diagnose", json=payload)
+        
         st.write("API Status Code:", response.status_code)
 
         if response.status_code == 200:
