@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 
+# Page ki setting (Tab ka naam aur icon)
 st.set_page_config(
     page_title="CCTNS Dumka IT Helpdesk",
     page_icon="🖥️",
@@ -13,6 +14,7 @@ st.markdown("---")
 st.header("Symptoms")
 st.write("System में जो problem है, उसे select करें:")
 
+# 2 Columns mein checkboxes
 col1, col2 = st.columns(2)
 
 with col1:
@@ -27,13 +29,13 @@ with col2:
     time_change = st.checkbox("7. Time automatically change हो रहा है?")
     usb = st.checkbox("8. USB Port काम नहीं कर रहा?")
     shutdown = st.checkbox("9. Computer automatically shutdown हो रहा है?")
-    motherboard = st.checkbox("10. Motherboard problem है?")
 
 st.markdown("---")
 
 if st.button("🔍 Diagnose Problem", use_container_width=True):
 
-    data = {
+    # UI ke inputs ko API ke format mein badalna
+    payload = {
         "power_on": 0 if power else 1,
         "display_on": 0 if display else 1,
         "os_loading": 0 if os_loading else 1,
@@ -42,30 +44,34 @@ if st.button("🔍 Diagnose Problem", use_container_width=True):
         "beep_sound": 1 if beep else 0,
         "time_automatic_change": 1 if time_change else 0,
         "USB_port_not_working": 1 if usb else 0,
-        "automatic_shut_down": 1 if shutdown else 0,
-        "motherboard_problem": 1 if motherboard else 0
+        "automatic_shut_down": 1 if shutdown else 0
     }
 
     try:
-	response = requests.post("https://cctns-dumka-it-helpdesk.onrender.com/diagnose", json=payload)
+        # Live Render API URL
+        response = requests.post("https://cctns-dumka-it-helpdesk.onrender.com/diagnose", json=payload)
         
-        st.write("API Status Code:", response.status_code)
-
         if response.status_code == 200:
-
             result = response.json()
-
-            st.success("Diagnosis Complete")
-
-            st.subheader("🔍 API Response")
-            st.json(result)
-
+            
+            # Agar illogical input (jaise bina power ke display) ka error aaye
+            if "Error" in result:
+                st.error(f"⚠️ {result['Error']}")
+            else:
+                # --- DARK AUR BOLD UI DESIGN ---
+                st.markdown(f"""
+                <div style="background-color: #1E1E1E; padding: 25px; border-radius: 10px; border: 2px solid #4CAF50; box-shadow: 2px 2px 15px rgba(0,0,0,0.5);">
+                    <h2 style="color: #4CAF50; margin-top: 0px;">🛠️ Solution (उपाय):</h2>
+                    <p style="color: #FFFFFF; font-size: 24px; font-weight: 900; line-height: 1.4;">{result['Solution_Advice']}</p>
+                    <hr style="border: 1px solid #444444; margin: 20px 0;">
+                    <h4 style="color: #FFA500; margin-bottom: 5px;">⚠️ Problem: <span style="color: #FFFFFF; font-weight: bold;">{result['Problem_Kha_Hai']}</span></h4>
+                    <h4 style="color: #00BFFF; margin-top: 0px;">🤖 AI Confidence: <span style="color: #FFFFFF; font-weight: bold;">{result['AI_Ki_Guarantee_Sambhawana']}</span></h4>
+                </div>
+                """, unsafe_allow_html=True)
+                # -------------------------------
+                
         else:
-            st.error("API से response नहीं मिला।")
-            st.write(response.text)
+            st.error(f"API Error (Status Code: {response.status_code})")
 
     except requests.exceptions.ConnectionError:
-        st.error(
-            "FastAPI server चालू नहीं है। "
-            "पहले app.py का Uvicorn server start करें।"
-        )
+        st.error("FastAPI server (Render) से connect नहीं हो पाया।")
