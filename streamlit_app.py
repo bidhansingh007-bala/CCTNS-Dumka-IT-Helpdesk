@@ -1,5 +1,4 @@
 import streamlit as st
-import requests
 import os
 
 # Page ki setting
@@ -30,18 +29,69 @@ div[data-testid="stCheckbox"] label p {
 """, unsafe_allow_html=True)
 # -----------------------------------
 
-# --- LOGO DISPLAY LOGIC ---
+# --- LOGO DISPLAY LOGIC (Updated Warning Fix) ---
 if os.path.exists("logo.jpeg"):
-    st.image("logo.jpeg", use_container_width=True)
+    st.image("logo.jpeg", width="stretch")
 elif os.path.exists("logo.jpg"):
-    st.image("logo.jpg", use_container_width=True)
+    st.image("logo.jpg", width="stretch")
 elif os.path.exists("logo.png"):
-    st.image("logo.png", use_container_width=True)
+    st.image("logo.png", width="stretch")
 else:
     st.warning("⚠️ Logo nahi dikh raha kyunki GitHub par file ka naam 'logo.jpg' ya 'logo.jpeg' nahi hai.")
     st.title("🖥️ CCTNS Dumka IT Helpdesk")
 # --------------------------
     
+# =========================================================
+# KNOWLEDGE BASE (Backend logic merged here)
+# =========================================================
+KNOWLEDGE_BASE = {
+    "power": {
+        "problem": "CPU/Computer ON nahi ho raha",
+        "solution": "Power socket, UPS aur power cable check karein. SMPS ka rear switch ON hai ya nahi dekhein. 24-pin motherboard aur CPU power connector check karein. Power button ki jaanch karein. Zarurat ho to CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "confidence": "High"
+    },
+    "display": {
+        "problem": "Monitor par Display nahi aa raha",
+        "solution": "Monitor power aur display cable check karein. HDMI/VGA/DisplayPort cable ko dobara connect karein. Monitor ka correct Input Source select karein. RAM ko safely reseat karke test karein. Dedicated GPU ho to uski seating aur power check karein. Possible ho to doosre monitor se test karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "confidence": "High"
+    },
+    "os": {
+        "problem": "Windows/OS Load nahi ho raha",
+        "solution": "Unnecessary USB devices remove karein. BIOS/UEFI mein SSD/HDD detect ho raha hai ya nahi check karein. Boot Order check karein. Windows Recovery Environment mein Startup Repair try karein. Zaruri data ka backup lekar hi reinstall/format karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "confidence": "High"
+    },
+    "beep": {
+        "problem": "Motherboard se Beep aa rahi hai",
+        "solution": "Computer band karke power cable remove karein. RAM ko safely reseat karein aur zarurat par ek-ek RAM module se test karein. Dedicated GPU ki seating check karein. Beep pattern note karke motherboard/BIOS manual ke beep code se compare karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "confidence": "High"
+    },
+    "shutdown": {
+        "problem": "System achanak band ho jata hai",
+        "solution": "CPU/GPU temperature aur cooling fans check karein. Cabinet ki dust clean karein. UPS/SMPS aur power cable check karein. RAM reseat karke test karein. Windows Event Viewer mein unexpected shutdown errors check karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "confidence": "Medium"
+    },
+    "keyboard": {
+        "problem": "Keyboard kaam nahi kar raha",
+        "solution": "Keyboard ko doosre USB port mein lagakar dekhein. Doosre keyboard se test karein. Wireless keyboard ho to battery aur receiver check karein. Device Manager mein keyboard device check karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "confidence": "Medium"
+    },
+    "mouse": {
+        "problem": "Mouse kaam nahi kar raha",
+        "solution": "Mouse ko doosre USB port mein lagakar dekhein. Doosre mouse se test karein. Wireless mouse ki battery aur receiver check karein. Optical sensor clean karein aur Device Manager check karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "confidence": "Medium"
+    },
+    "time": {
+        "problem": "Date/Time automatic badal raha hai",
+        "solution": "Windows Settings > Time & language > Date & time mein Set time automatically ON karein aur correct Time Zone select karein. Agar PC band hone ke baad time reset hota hai to CMOS/RTC battery, aam taur par CR2032, check/replace karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "confidence": "High"
+    },
+    "usb": {
+        "problem": "USB Port kaam nahi kar raha",
+        "solution": "Device ko doosre USB port mein lagakar test karein. Same port mein doosra known-good device test karein. Computer restart karein. Device Manager > Universal Serial Bus controllers mein warning/error check karein. Physical damage ho to technician ko dikhayein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "confidence": "Medium"
+    }
+}
+
 st.markdown("---")
 
 st.header("Symptoms")
@@ -70,66 +120,63 @@ if st.button("🔍 Diagnose Problem", use_container_width=True):
     if not (power or display or os_loading or keyboard or mouse or beep or time_change or usb or shutdown):
         st.warning("⚠️ सिस्टम एकदम ठीक लग रहा है! कृपया Diagnose करने से पहले कम से कम एक Problem (Symptom) सेलेक्ट करें।")
     else:
-        payload = {
-            "power_on": 0 if power else 1,
-            "display_on": 0 if display else 1,
-            "os_loading": 0 if os_loading else 1,
-            "key_board": 0 if keyboard else 1,
-            "mouse": 0 if mouse else 1,
-            "beep_sound": 1 if beep else 0,
-            "time_automatic_change": 1 if time_change else 0,
-            "USB_port_not_working": 1 if usb else 0,
-            "automatic_shut_down": 1 if shutdown else 0
-        }
+        # --- LOCAL DIAGNOSIS LOGIC (No API Call Needed) ---
+        result = {}
+        
+        # Priority Checking
+        if power:
+            result = KNOWLEDGE_BASE["power"]
+        elif display:
+            result = KNOWLEDGE_BASE["display"]
+        elif os_loading:
+            result = KNOWLEDGE_BASE["os"]
+        elif beep:
+            result = KNOWLEDGE_BASE["beep"]
+        elif shutdown:
+            result = KNOWLEDGE_BASE["shutdown"]
+        elif keyboard:
+            result = KNOWLEDGE_BASE["keyboard"]
+        elif mouse:
+            result = KNOWLEDGE_BASE["mouse"]
+        elif time_change:
+            result = KNOWLEDGE_BASE["time"]
+        elif usb:
+            result = KNOWLEDGE_BASE["usb"]
 
-        try:
-            response = requests.post("https://cctns-dumka-it-helpdesk.onrender.com/diagnose", json=payload)
-            
-            if response.status_code == 200:
-                result = response.json()
-                
-                if "Error" in result:
-                    st.error(f"⚠️ {result['Error']}")
-                else:
-                    primary_problem = result['Problem_Kha_Hai']
-                    primary_solution = result['Solution_Advice']
-                    
-                    extra_solutions = ""
-                    if keyboard and "Keyboard" not in primary_problem:
-                        extra_solutions += "<li style='margin-bottom: 8px;'><b>Keyboard:</b> USB cable निकालकर दूसरे Port में लगायें या कीबोर्ड बदलें।</li>"
-                    if mouse and "Mouse" not in primary_problem:
-                        extra_solutions += "<li style='margin-bottom: 8px;'><b>Mouse:</b> नीचे का सेंसर साफ करें या दूसरे Port में लगाकर चेक करें।</li>"
-                    if time_change and "CMOS" not in primary_problem:
-                        extra_solutions += "<li style='margin-bottom: 8px;'><b>Date/Time:</b> Motherboard की CMOS Battery (CR2032) खत्म हो गई है, उसे बदलें।</li>"
-                    if usb and "USB" not in primary_problem:
-                        extra_solutions += "<li style='margin-bottom: 8px;'><b>USB Port:</b> BIOS settings चेक करें या Motherboard का USB Driver अपडेट करें।</li>"
-                    if shutdown and "Overheating" not in primary_problem:
-                        extra_solutions += "<li style='margin-bottom: 8px;'><b>Auto Shutdown:</b> CPU Fan चेक करें (Overheating हो सकती है) और Thermal Paste लगायें।</li>"
-                    if beep and "RAM" not in primary_problem:
-                        extra_solutions += "<li style='margin-bottom: 8px;'><b>Beep Sound:</b> RAM निकालकर रबर से साफ करें और वापस लगायें।</li>"
-                    
-                    extra_html = ""
-                    if extra_solutions != "":
-                        extra_html = f'<hr style="border: 1px dashed #AAAAAA; margin: 20px 0;"><h4 style="color: #D35400; margin-bottom: 12px; margin-top: 0px;">📌 अन्य चुनी गई समस्याओं के उपाय:</h4><ul style="color: #333333; font-size: 20px; line-height: 1.4;">{extra_solutions}</ul>'
-                    
-                    # Yahan spacing remove kar di gayi hai taaki code block na bane
-                    html_ui = f"""<div style="background-color: #FFFFFF; padding: 25px; border-radius: 12px; border: 2px solid #27AE60; box-shadow: 0px 4px 15px rgba(0,0,0,0.1);">
+        primary_problem = result['problem']
+        primary_solution = result['solution']
+        confidence = result['confidence']
+        
+        extra_solutions = ""
+        if keyboard and "Keyboard" not in primary_problem:
+            extra_solutions += "<li style='margin-bottom: 8px;'><b>Keyboard:</b> USB cable निकालकर दूसरे Port में लगायें या कीबोर्ड बदलें।</li>"
+        if mouse and "Mouse" not in primary_problem:
+            extra_solutions += "<li style='margin-bottom: 8px;'><b>Mouse:</b> नीचे का सेंसर साफ करें या दूसरे Port में लगाकर चेक करें।</li>"
+        if time_change and "Date/Time" not in primary_problem:
+            extra_solutions += "<li style='margin-bottom: 8px;'><b>Date/Time:</b> Motherboard की CMOS Battery (CR2032) खत्म हो गई है, उसे बदलें।</li>"
+        if usb and "USB Port" not in primary_problem:
+            extra_solutions += "<li style='margin-bottom: 8px;'><b>USB Port:</b> BIOS settings चेक करें या Motherboard का USB Driver अपडेट करें।</li>"
+        if shutdown and "System" not in primary_problem:
+            extra_solutions += "<li style='margin-bottom: 8px;'><b>Auto Shutdown:</b> CPU Fan चेक करें (Overheating हो सकती है) और Thermal Paste लगायें।</li>"
+        if beep and "Beep" not in primary_problem:
+            extra_solutions += "<li style='margin-bottom: 8px;'><b>Beep Sound:</b> RAM निकालकर रबर से साफ करें और वापस लगायें।</li>"
+        
+        extra_html = ""
+        if extra_solutions != "":
+            extra_html = f'<hr style="border: 1px dashed #AAAAAA; margin: 20px 0;"><h4 style="color: #D35400; margin-bottom: 12px; margin-top: 0px;">📌 अन्य चुनी गई समस्याओं के उपाय:</h4><ul style="color: #333333; font-size: 20px; line-height: 1.4;">{extra_solutions}</ul>'
+        
+        html_ui = f"""<div style="background-color: #FFFFFF; padding: 25px; border-radius: 12px; border: 2px solid #27AE60; box-shadow: 0px 4px 15px rgba(0,0,0,0.1);">
 <h3 style="color: #27AE60; margin-top: 0px; margin-bottom: 10px;">🛠️ Main Solution (मुख्य उपाय):</h3>
 <p style="color: #111111; font-size: 26px; font-weight: 900; line-height: 1.4; margin-bottom: 5px;">{primary_solution}</p>
 {extra_html}
 <hr style="border: 1px solid #DDDDDD; margin: 20px 0;">
 <div style="background-color: #F8F9F9; padding: 15px; border-radius: 8px; border: 1px solid #EEEEEE;">
 <h4 style="color: #C0392B; margin: 0px 0px 8px 0px;">⚠️ Main Root Cause: <span style="color: #222222; font-weight: bold;">{primary_problem}</span></h4>
-<h4 style="color: #2980B9; margin: 0px;">🤖 AI Confidence: <span style="color: #222222; font-weight: bold;">{result['AI_Ki_Guarantee_Sambhawana']}</span></h4>
+<h4 style="color: #2980B9; margin: 0px;">🤖 AI Confidence: <span style="color: #222222; font-weight: bold;">{confidence}</span></h4>
 </div>
 </div>"""
-                    st.markdown(html_ui, unsafe_allow_html=True)
-                    
-            else:
-                st.error(f"API Error (Status Code: {response.status_code})")
-
-        except requests.exceptions.ConnectionError:
-            st.error("FastAPI server (Render) से connect नहीं हो पाया।")
+        
+        st.markdown(html_ui, unsafe_allow_html=True)
 
 # --- FOOTER AUR DISCLAIMER ---
 st.markdown("<br><br>", unsafe_allow_html=True)
