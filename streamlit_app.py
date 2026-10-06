@@ -339,8 +339,3 @@ if st.button("🔍 Run System Diagnosis", use_container_width=True):
         """
         st.markdown(portal_result_ui, unsafe_allow_html=True)
 
-# --- FOOTER ---
-st.markdown("<br><br>", unsafe_allow_html=True)
-st.markdown("""
-
-""", unsafe_allow_html=True)
