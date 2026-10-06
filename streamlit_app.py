@@ -143,7 +143,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =========================================================
-# KNOWLEDGE BASE (Enhanced Cards for All Solutions)
+# KNOWLEDGE BASE
 # =========================================================
 KNOWLEDGE_BASE = {
     "power": {
@@ -217,7 +217,7 @@ KNOWLEDGE_BASE = {
         "problem": "System achanak band ho jata hai",
         "solution": """
 <div style="background: #ffffff; padding: 20px; border-radius: 10px; border-left: 6px solid #EF4444; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 12px;">
-    <h4 style="color: #DC2626; margin-top: 0; margin-bottom: 8px; font-size: 17px;">🌡️️ 1. कूलिंग और डस्ट क्लीनिंग</h4>
+    <h4 style="color: #DC2626; margin-top: 0; margin-bottom: 8px; font-size: 17px;">🌡 1. कूलिंग और डस्ट क्लीनिंग</h4>
     <p style="color: #334155; font-size: 14px; line-height: 1.5;">CPU फैन और कूलिंग चेक करें (Overheating से बचाव)। कैबिनेट की धूल साफ करें।</p>
 </div>
 <div style="background: #ffffff; padding: 20px; border-radius: 10px; border-left: 6px solid #10B981; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 12px;">
@@ -304,22 +304,21 @@ if st.button("🔍 Run System Diagnosis", use_container_width=True):
         elif time_change: result = KNOWLEDGE_BASE["time"]
         elif usb: result = KNOWLEDGE_BASE["usb"]
 
-        primary_problem = result['problem']
         primary_solution = result['solution']
         confidence = result['confidence']
         
         extra_solutions = ""
-        if keyboard and "Keyboard" not in primary_problem:
+        if keyboard and "Keyboard" not in result['problem']:
             extra_solutions += "<li style='margin-bottom: 6px;'><b>Keyboard:</b> USB cable बदलकर दूसरे Port में लगायें।</li>"
-        if mouse and "Mouse" not in primary_problem:
+        if mouse and "Mouse" not in result['problem']:
             extra_solutions += "<li style='margin-bottom: 6px;'><b>Mouse:</b> ऑप्टिकल सेंसर साफ करें।</li>"
-        if time_change and "Date/Time" not in primary_problem:
+        if time_change and "Date/Time" not in result['problem']:
             extra_solutions += "<li style='margin-bottom: 6px;'><b>Date/Time:</b> CMOS Battery (CR2032) चेक करें।</li>"
-        if usb and "USB Port" not in primary_problem:
+        if usb and "USB Port" not in result['problem']:
             extra_solutions += "<li style='margin-bottom: 6px;'><b>USB Port:</b> ड्राइवर अपडेट करें।</li>"
-        if shutdown and "System" not in primary_problem:
+        if shutdown and "System" not in result['problem']:
             extra_solutions += "<li style='margin-bottom: 6px;'><b>Auto Shutdown:</b> CPU Fan और Thermal Paste चेक करें।</li>"
-        if beep and "Beep" not in primary_problem:
+        if beep and "Beep" not in result['problem']:
             extra_solutions += "<li style='margin-bottom: 6px;'><b>Beep Sound:</b> RAM निकालकर साफ करें।</li>"
         
         extra_html = ""
@@ -336,10 +335,6 @@ if st.button("🔍 Run System Diagnosis", use_container_width=True):
             {primary_solution}
             
             {extra_html}
-            
-            <div style="background-color: #F8FAFC; padding: 12px 15px; border-radius: 6px; border: 1px solid #E2E8F0; margin-top: 15px;">
-                <span style="color: #64748B; font-size: 13px;"><b>Primary Root Cause Identified:</b> <span style="color: #EF4444; font-weight: 600;">{primary_problem}</span></span>
-            </div>
         </div>
         """
         st.markdown(portal_result_ui, unsafe_allow_html=True)
@@ -347,8 +342,5 @@ if st.button("🔍 Run System Diagnosis", use_container_width=True):
 # --- FOOTER ---
 st.markdown("<br><br>", unsafe_allow_html=True)
 st.markdown("""
-<div style="text-align: center; color: #64748B; padding: 15px; border-top: 1px solid #CBD5E1; margin-top: 20px;">
-    <p style="margin: 0; font-size: 13px; font-weight: 600; color: #1E3A8A;">CCTNS IT Helpdesk Portal - Dumka District</p>
-    <p style="margin: 3px 0 0 0; font-size: 11px; font-style: italic;">Disclaimer: Designed for internal technical support operations.</p>
-</div>
+
 """, unsafe_allow_html=True)
