@@ -339,3 +339,11 @@ if st.button("🔍 Run System Diagnosis", use_container_width=True):
         """
         st.markdown(portal_result_ui, unsafe_allow_html=True)
 
+# --- FOOTER ---
+st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("""
+<div style="text-align: center; color: #64748B; padding: 15px; border-top: 1px solid #CBD5E1; margin-top: 20px;">
+    <p style="margin: 0; font-size: 13px; font-weight: 600; color: #1E3A8A;">CCTNS IT Helpdesk Portal - Dumka District</p>
+    <p style="margin: 3px 0 0 0; font-size: 11px; font-style: italic;">Disclaimer: Designed for internal technical support operations.</p>
+</div>
+""", unsafe_allow_html=True)
