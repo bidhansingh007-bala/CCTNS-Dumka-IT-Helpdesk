@@ -47,26 +47,70 @@ else:
 KNOWLEDGE_BASE = {
     "power": {
         "problem": "CPU/Computer ON nahi ho raha",
-        "solution": (
-                    "1. पावर सॉकेट, यूपीएस और पावर केबल की जाँच करें:"
-                    "पहला चरण - सुनिश्चित करें कि मुख्य पावर सॉकेट और यूपीएस (UPS) चालू हैं। दीवार के सॉकेट से यूपीएस और सीपीयू तक आने वाली पावर केबल दोनों सिरों पर कसकर जुड़ी होनी चाहिए।कैसे जाँचें: सॉकेट में कोई अन्य उपकरण (जैसे मोबाइल चार्जर) लगाकर देखें कि बिजली आ रही है या नहीं। यूपीएस की इंडिकेटर लाइट चालू होनी चाहिए। "
-                    
-                    "2. एसएमपीएस (SMPS) का रियर स्विच देखें:" 
-                    "एसएमपीएस (SMPS) का रियर स्विच देखें:दूसरा चरण.सीपीयू कैबिनेट के पिछले हिस्से में लगे पावर सप्लाई यूनिट (SMPS) के मुख्य स्विच को देखें।कैसे जाँचें: सुनिश्चित करें कि रियर स्विच 'I' (ON) स्थिति में है, न कि 'O' (OFF) स्थिति में। "
-                    
-                    "3. कैबिनेट पावर बटन की जाँच करें:"
-                    "तीसरा चरण - सीपीयू के सामने वाले पावर बटन को दबाकर देखें। कई बार बटन अंदर की तरफ फंस जाता है या उसका इंटरनल कनेक्टर मदरबोर्ड से ढीला हो जाता है (Jumper Panel / Front Panel Header)। "
-                    "कैसे जाँचें: बटन दबाने पर यदि मदरबोर्ड पर कोई छोटी इंडिकेटर लाइट जलती है या पंखा हल्का सा हिलता है, तो इसका मतलब पावर मिल रही है।"
-                    
-                    "4. 24-pin मदरबोर्ड और CPU पावर कनेक्टर जाँचें:"
-                    "चौथा चरण - कैबिनेट का ढक्कन खोलकर अंदर देखें कि क्या सभी मुख्य पावर केबल्स अपने पोर्ट पर ठीक से लगी हैं या नहीं। इसमें मुख्य 24-pin मदरबोर्ड कनेक्टर और 4/8-pin CPU पावर कनेक्टर शामिल हैं। "
-                    "कैसे जाँचें: दोनों कनेक्टर्स को हल्के से खींचकर चेक करें कि वे अपनी जगह पर मजबूती से लॉक हैं या नहीं।"
-                    
-                    "5. CCTNS ऑफिस दुमका तकनीकी सहायता: CCTNS ऑफिस दुमका तकनीकी सहायता:अंतिम चरण.यदि उपरोक्त सभी बुनियादी जाँच के बाद भी समस्या बनी रहती है, तो हार्डवेयर स्तर की गहरी जाँच के लिए CCTNS Office Dumka में Er. Bidhan Chandra Singh से संपर्क करके सिस्टम का निरीक्षण करवाएं।"
-                   
-        ),
+        "solution": """
+<div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 20px; border-radius: 12px; border-left: 6px solid #e74c3c; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #c0392b; margin-top: 0; margin-bottom: 12px; font-size: 20px; display: flex; align-items: center; gap: 8px;">
+        🔌 1. पावर सॉकेट, यूपीएस और पावर केबल की जाँच
+    </h4>
+    <p style="color: #2c3e50; font-size: 16px; line-height: 1.5; margin-bottom: 10px;">
+        सुनिश्चित करें कि मुख्य पावर सॉकेट और यूपीएस (UPS) चालू हैं। दीवार के सॉकेट से यूपीएस और सीपीयू तक आने वाली पावर केबल दोनों सिरों पर कसकर जुड़ी होनी चाहिए।
+    </p>
+    <div style="background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 15px; color: #495057;">
+        <b>🔍 कैसे जाँचें:</b> सॉकेट में कोई अन्य उपकरण (जैसे मोबाइल चार्जर) लगाकर देखें कि बिजली आ रही है या नहीं। यूपीएस की इंडिकेटर लाइट चालू होनी चाहिए।
+    </div>
+</div>
+
+<div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 20px; border-radius: 12px; border-left: 6px solid #e67e22; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #d35400; margin-top: 0; margin-bottom: 12px; font-size: 20px; display: flex; align-items: center; gap: 8px;">
+        ⚡ 2. एसएमपीएस (SMPS) का रियर स्विच देखें
+    </h4>
+    <p style="color: #2c3e50; font-size: 16px; line-height: 1.5; margin-bottom: 10px;">
+        सीपीयू कैबिनेट के पिछले हिस्से में लगे पावर सप्लाई यूनिट (SMPS) के मुख्य स्विच को देखें।
+    </p>
+    <div style="background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 15px; color: #495057;">
+        <b>🔍 कैसे जाँचें:</b> सुनिश्चित करें कि रियर स्विच <b>'I' (ON)</b> स्थिति में है, न कि 'O' (OFF) स्थिति में।
+    </div>
+</div>
+
+<div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 20px; border-radius: 12px; border-left: 6px solid #f1c40f; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #b7950b; margin-top: 0; margin-bottom: 12px; font-size: 20px; display: flex; align-items: center; gap: 8px;">
+        🔘 3. कैबिनेट पावर बटन की जाँच करें
+    </h4>
+    <p style="color: #2c3e50; font-size: 16px; line-height: 1.5; margin-bottom: 10px;">
+        सीपीयू के सामने वाले पावर बटन को दबाकर देखें। कई बार बटन अंदर की तरफ फंस जाता है या उसका इंटरनल कनेक्टर मदरबोर्ड से ढीला हो जाता है (Front Panel Header)।
+    </p>
+    <div style="background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 15px; color: #495057;">
+        <b>🔍 कैसे जाँचें:</b> बटन दबाने पर यदि मदरबोर्ड पर कोई छोटी इंडिकेटर लाइट जलती है या पंखा हल्का सा हिलता है, तो इसका मतलब पावर मिल रही है।
+    </div>
+</div>
+
+<div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 20px; border-radius: 12px; border-left: 6px solid #3498db; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #2980b9; margin-top: 0; margin-bottom: 12px; font-size: 20px; display: flex; align-items: center; gap: 8px;">
+        🔌 4. 24-pin मदरबोर्ड और CPU पावर कनेक्टर जाँचें
+    </h4>
+    <p style="color: #2c3e50; font-size: 16px; line-height: 1.5; margin-bottom: 10px;">
+        कैबिनेट का ढक्कन खोलकर अंदर देखें कि क्या सभी मुख्य पावर केबल्स अपने पोर्ट पर ठीक से लगी हैं या नहीं। इसमें मुख्य <b>24-pin मदरबोर्ड कनेक्टर</b> और <b>4/8-pin CPU पावर कनेक्टर</b> शामिल हैं।
+    </p>
+    <div style="background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 15px; color: #495057;">
+        <b>🔍 कैसे जाँचें:</b> दोनों कनेक्टर्स को हल्के से खींचकर चेक करें कि वे अपनी जगह पर मजबूती से लॉक हैं या नहीं।
+    </div>
+</div>
+
+<div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 20px; border-radius: 12px; border-left: 6px solid #27ae60; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #27ae60; margin-top: 0; margin-bottom: 12px; font-size: 20px; display: flex; align-items: center; gap: 8px;">
+        🏛️ 5. CCTNS ऑफिस दुमका तकनीकी सहायता
+    </h4>
+    <p style="color: #2c3e50; font-size: 16px; line-height: 1.5; margin-bottom: 10px;">
+        यदि उपरोक्त सभी बुनियादी जाँच के बाद भी समस्या बनी रहती है, तो हार्डवेयर स्तर की गहरी जाँच के लिए CCTNS Office Dumka में <b>Er. Bidhan Chandra Singh</b> से संपर्क करके सिस्टम का निरीक्षण करवाएं।
+    </p>
+    <div style="background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 15px; color: #495057;">
+        <b>🔍 कैसे जाँचें:</b> तकनीकी टीम मल्टीमीटर या पोस्ट कार्ड (POST card) के माध्यम से वोल्टेज और मदरबोर्ड के फॉल्ट की पुष्टि करेगी।
+    </div>
+</div>
+        """,
         "confidence": "High"
-       
+    },
+
     },
     "display": {
         "problem": "Monitor par Display nahi aa raha",
