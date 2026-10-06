@@ -8,28 +8,67 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- CUSTOM CSS FOR LIGHT THEME ---
+# --- MODERN CUSTOM CSS FOR PROFESSIONAL UI ---
 st.markdown("""
 <style>
-/* Background ko light-grey/white karna */
+/* App Background & Font */
 .stApp {
-    background-color: #F4F6F9 !important;
+    background: linear-gradient(180deg, #F0F3F8 0%, #E2E8F0 100%) !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-/* Saare text ko dark (black/grey) karna taaki light background par dikhe */
+
+/* Saare text ko readable aur dark rakhna */
 .stApp, h1, h2, h3, h4, p, label {
-    color: #1E1E1E !important;
+    color: #1E293B !important;
 }
-/* Checkbox text */
+
+/* Header Styling */
+h1, h2, h3 {
+    letter-spacing: -0.5px;
+}
+
+/* Checkbox container styling */
+div[data-testid="stCheckbox"] {
+    background-color: #FFFFFF;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    transition: all 0.2s ease;
+}
+div[data-testid="stCheckbox"]:hover {
+    border-color: #3B82F6;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.1);
+}
 div[data-testid="stCheckbox"] label p {
-    font-size: 19px !important;
+    font-size: 16px !important;
     font-weight: 600 !important;
-    color: #2C3E50 !important;
+    color: #334155 !important;
+}
+
+/* Custom Button Styling */
+.stButton>button {
+    background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%) !important;
+    color: white !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 10px !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25) !important;
+    transition: all 0.3s ease !important;
+}
+.stButton>button:hover {
+    background: linear-gradient(135deg, #1D4ED8 100%, #1E40AF 0%) !important;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4) !important;
+    transform: translateY(-1px);
 }
 </style>
 """, unsafe_allow_html=True)
 # -----------------------------------
 
-# --- LOGO DISPLAY LOGIC (Updated Warning Fix) ---
+# --- TOP BANNER / LOGO LOGIC ---
 if os.path.exists("logo.jpeg"):
     st.image("logo.jpeg", width="stretch")
 elif os.path.exists("logo.jpg"):
@@ -37,125 +76,175 @@ elif os.path.exists("logo.jpg"):
 elif os.path.exists("logo.png"):
     st.image("logo.png", width="stretch")
 else:
-    st.warning("⚠️ Logo nahi dikh raha kyunki GitHub par file ka naam 'logo.jpg' ya 'logo.jpeg' nahi hai.")
-    st.title("🖥️ CCTNS Dumka IT Helpdesk")
+    st.markdown("""
+    <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%); border-radius: 14px; color: white; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <h1 style="margin: 0; font-size: 28px; color: white !important;">🖥️ CCTNS Dumka IT Helpdesk</h1>
+        <p style="margin: 5px 0 0 0; font-size: 15px; color: #E2E8F0 !important;">Technical Support & Troubleshooting Portal</p>
+    </div>
+    """, unsafe_allow_html=True)
 # --------------------------
     
 # =========================================================
-# KNOWLEDGE BASE (Backend logic merged here)
+# KNOWLEDGE BASE (Enhanced Cards for All Solutions)
 # =========================================================
 KNOWLEDGE_BASE = {
     "power": {
         "problem": "CPU/Computer ON nahi ho raha",
         "solution": """
-<div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 20px; border-radius: 12px; border-left: 6px solid #e74c3c; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
-    <h4 style="color: #c0392b; margin-top: 0; margin-bottom: 12px; font-size: 20px; display: flex; align-items: center; gap: 8px;">
-        🔌 1. पावर सॉकेट, यूपीएस और पावर केबल की जाँच
-    </h4>
-    <p style="color: #2c3e50; font-size: 16px; line-height: 1.5; margin-bottom: 10px;">
-        सुनिश्चित करें कि मुख्य पावर सॉकेट और यूपीएस (UPS) चालू हैं। दीवार के सॉकेट से यूपीएस और सीपीयू तक आने वाली पावर केबल दोनों सिरों पर कसकर जुड़ी होनी चाहिए।
-    </p>
-    <div style="background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 15px; color: #495057;">
-        <b>🔍 कैसे जाँचें:</b> सॉकेट में कोई अन्य उपकरण (जैसे मोबाइल चार्जर) लगाकर देखें कि बिजली आ रही है या नहीं। यूपीएस की इंडिकेटर लाइट चालू होनी चाहिए।
-    </div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #e74c3c; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #c0392b; margin-top: 0; margin-bottom: 12px; font-size: 18px; display: flex; align-items: center; gap: 8px;">🔌 1. पावर सॉकेट, यूपीएस और पावर केबल की जाँच</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5; margin-bottom: 10px;">सुनिश्चित करें कि मुख्य पावर सॉकेट और यूपीएस (UPS) चालू हैं। दीवार के सॉकेट से यूपीएस और सीपीयू तक आने वाली पावर केबल दोनों सिरों पर कसकर जुड़ी होनी चाहिए।</p>
+    <div style="background: #f8f9fa; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 14px; color: #495057;"><b>🔍 कैसे जाँचें:</b> सॉकेट में कोई अन्य उपकरण (जैसे मोबाइल चार्जर) लगाकर देखें कि बिजली आ रही है या नहीं। यूपीएस की इंडिकेटर लाइट चालू होनी चाहिए।</div>
 </div>
-
-<div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 20px; border-radius: 12px; border-left: 6px solid #e67e22; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
-    <h4 style="color: #d35400; margin-top: 0; margin-bottom: 12px; font-size: 20px; display: flex; align-items: center; gap: 8px;">
-        ⚡ 2. एसएमपीएस (SMPS) का रियर स्विच देखें
-    </h4>
-    <p style="color: #2c3e50; font-size: 16px; line-height: 1.5; margin-bottom: 10px;">
-        सीपीयू कैबिनेट के पिछले हिस्से में लगे पावर सप्लाई यूनिट (SMPS) के मुख्य स्विच को देखें।
-    </p>
-    <div style="background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 15px; color: #495057;">
-        <b>🔍 कैसे जाँचें:</b> सुनिश्चित करें कि रियर स्विच <b>'I' (ON)</b> स्थिति में है, न कि 'O' (OFF) स्थिति में।
-    </div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #e67e22; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #d35400; margin-top: 0; margin-bottom: 12px; font-size: 18px; display: flex; align-items: center; gap: 8px;">⚡ 2. एसएमपीएस (SMPS) का रियर स्विच देखें</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5; margin-bottom: 10px;">सीपीयू कैबिनेट के पिछले हिस्से में लगे पावर सप्लाई यूनिट (SMPS) के मुख्य स्विच को देखें।</p>
+    <div style="background: #f8f9fa; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 14px; color: #495057;"><b>🔍 कैसे जाँचें:</b> सुनिश्चित करें कि रियर स्विच <b>'I' (ON)</b> स्थिति में है, न कि 'O' (OFF) स्थिति में।</div>
 </div>
-
-<div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 20px; border-radius: 12px; border-left: 6px solid #f1c40f; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
-    <h4 style="color: #b7950b; margin-top: 0; margin-bottom: 12px; font-size: 20px; display: flex; align-items: center; gap: 8px;">
-        🔘 3. कैबिनेट पावर बटन की जाँच करें
-    </h4>
-    <p style="color: #2c3e50; font-size: 16px; line-height: 1.5; margin-bottom: 10px;">
-        सीपीयू के सामने वाले पावर बटन को दबाकर देखें। कई बार बटन अंदर की तरफ फंस जाता है या उसका इंटरनल कनेक्टर मदरबोर्ड से ढीला हो जाता है (Front Panel Header)।
-    </p>
-    <div style="background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 15px; color: #495057;">
-        <b>🔍 कैसे जाँचें:</b> बटन दबाने पर यदि मदरबोर्ड पर कोई छोटी इंडिकेटर लाइट जलती है या पंखा हल्का सा हिलता है, तो इसका मतलब पावर मिल रही है।
-    </div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #f1c40f; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #b7950b; margin-top: 0; margin-bottom: 12px; font-size: 18px; display: flex; align-items: center; gap: 8px;">🔘 3. कैबिनेट पावर बटन की जाँच करें</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5; margin-bottom: 10px;">सीपीयू के सामने वाले पावर बटन को दबाकर देखें। कई बार बटन अंदर की तरफ फंस जाता है या उसका इंटरनल कनेक्टर मदरबोर्ड से ढीला हो जाता है (Front Panel Header)।</p>
+    <div style="background: #f8f9fa; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 14px; color: #495057;"><b>🔍 कैसे जाँचें:</b> बटन दबाने पर यदि मदरबोर्ड पर कोई छोटी इंडिकेटर लाइट जलती है या पंखा हल्का सा हिलता है, तो इसका मतलब पावर मिल रही है।</div>
 </div>
-
-<div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 20px; border-radius: 12px; border-left: 6px solid #3498db; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
-    <h4 style="color: #2980b9; margin-top: 0; margin-bottom: 12px; font-size: 20px; display: flex; align-items: center; gap: 8px;">
-        🔌 4. 24-pin मदरबोर्ड और CPU पावर कनेक्टर जाँचें
-    </h4>
-    <p style="color: #2c3e50; font-size: 16px; line-height: 1.5; margin-bottom: 10px;">
-        कैबिनेट का ढक्कन खोलकर अंदर देखें कि क्या सभी मुख्य पावर केबल्स अपने पोर्ट पर ठीक से लगी हैं या नहीं। इसमें मुख्य <b>24-pin मदरबोर्ड कनेक्टर</b> और <b>4/8-pin CPU पावर कनेक्टर</b> शामिल हैं।
-    </p>
-    <div style="background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 15px; color: #495057;">
-        <b>🔍 कैसे जाँचें:</b> दोनों कनेक्टर्स को हल्के से खींचकर चेक करें कि वे अपनी जगह पर मजबूती से लॉक हैं या नहीं।
-    </div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #3498db; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #2980b9; margin-top: 0; margin-bottom: 12px; font-size: 18px; display: flex; align-items: center; gap: 8px;">🔌 4. 24-pin मदरबोर्ड और CPU पावर कनेक्टर जाँचें</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5; margin-bottom: 10px;">कैबिनेट का ढक्कन खोलकर अंदर देखें कि क्या सभी मुख्य पावर केबल्स अपने पोर्ट पर ठीक से लगी हैं या नहीं। इसमें मुख्य <b>24-pin मदरबोर्ड कनेक्टर</b> और <b>4/8-pin CPU पावर कनेक्टर</b> शामिल हैं।</p>
+    <div style="background: #f8f9fa; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 14px; color: #495057;"><b>🔍 कैसे जाँचें:</b> दोनों कनेक्टर्स को हल्के से खींचकर चेक करें कि वे अपनी जगह पर मजबूती से लॉक हैं या नहीं।</div>
 </div>
-
-<div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 20px; border-radius: 12px; border-left: 6px solid #27ae60; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
-    <h4 style="color: #27ae60; margin-top: 0; margin-bottom: 12px; font-size: 20px; display: flex; align-items: center; gap: 8px;">
-        🏛️ 5. CCTNS ऑफिस दुमका तकनीकी सहायता
-    </h4>
-    <p style="color: #2c3e50; font-size: 16px; line-height: 1.5; margin-bottom: 10px;">
-        यदि उपरोक्त सभी बुनियादी जाँच के बाद भी समस्या बनी रहती है, तो हार्डवेयर स्तर की गहरी जाँच के लिए CCTNS Office Dumka में <b>Er. Bidhan Chandra Singh</b> से संपर्क करके सिस्टम का निरीक्षण करवाएं।
-    </p>
-    <div style="background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 15px; color: #495057;">
-        <b>🔍 कैसे जाँचें:</b> तकनीकी टीम मल्टीमीटर या पोस्ट कार्ड (POST card) के माध्यम से वोल्टेज और मदरबोर्ड के फॉल्ट की पुष्टि करेगी।
-    </div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #27ae60; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #27ae60; margin-top: 0; margin-bottom: 12px; font-size: 18px; display: flex; align-items: center; gap: 8px;">🏛️ 5. CCTNS ऑफिस दुमका तकनीकी सहायता</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5; margin-bottom: 10px;">यदि उपरोक्त सभी बुनियादी जाँच के बाद भी समस्या बनी रहती है, तो हार्डवेयर स्तर की गहरी जाँच के लिए CCTNS Office Dumka में <b>Er. Bidhan Chandra Singh</b> से संपर्क करके सिस्टम का निरीक्षण करवाएं।</p>
+    <div style="background: #f8f9fa; padding: 10px 14px; border-radius: 6px; border: 1px solid #dee2e6; font-size: 14px; color: #495057;"><b>🔍 कैसे जाँचें:</b> तकनीकी टीम मल्टीमीटर या पोस्ट कार्ड (POST card) के माध्यम से वोल्टेज और मदरबोर्ड के फॉल्ट की पुष्टि करेगी।</div>
 </div>
         """,
         "confidence": "High"
     },
     "display": {
         "problem": "Monitor par Display nahi aa raha",
-        "solution": "Monitor power aur display cable check karein. HDMI/VGA/DisplayPort cable ko dobara connect karein. Monitor ka correct Input Source select karein. RAM ko safely reseat karke test karein. Dedicated GPU ho to uski seating aur power check karein. Possible ho to doosre monitor se test karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "solution": """
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #3498db; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #2980b9; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🖥️ 1. मॉनिटर पावर और डिस्प्ले केबल जाँच</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">HDMI/VGA/DisplayPort केबल को दोनों सिरों (मॉनिटर और सीपीयू) पर दोबारा कसकर कनेक्ट करें। सुनिश्चित करें कि मॉनिटर का पावर एडप्टर चालू है।</p>
+</div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #e67e22; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #d35400; margin-top: 0; margin-bottom: 12px; font-size: 18px;">⚙️ 2. इनपुट सोर्स और हार्डवेयर जाँच</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">मॉनिटर के मेनू बटन से सही <b>Input Source</b> (जैसे HDMI 1 या VGA) सेलेक्ट करें। रैम (RAM) को निकालकर साफ करके दोबारा लगाएं या दूसरे मॉनिटर से टेस्ट करें।</p>
+</div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #27ae60; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #27ae60; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🏛️ 3. CCTNS ऑफिस दुमका तकनीकी सहायता</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">समस्या ठीक न होने पर CCTNS Office Dumka में <b>Er. Bidhan Chandra Singh</b> से संपर्क कर सहायता लें।</p>
+</div>
+        """,
         "confidence": "High"
     },
     "os": {
         "problem": "Windows/OS Load nahi ho raha",
-        "solution": "Unnecessary USB devices remove karein. BIOS/UEFI mein SSD/HDD detect ho raha hai ya nahi check karein. Boot Order check karein. Windows Recovery Environment mein Startup Repair try karein. Zaruri data ka backup lekar hi reinstall/format karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "solution": """
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #8e44ad; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #8e44ad; margin-top: 0; margin-bottom: 12px; font-size: 18px;">💽 1. एक्सटर्नल डिवाइसेस और स्टोरेज जाँच</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">सभी अनावश्यक USB पेनड्राइव या एक्सटर्नल हार्ड डिस्क हटा दें। BIOS/UEFI में जाकर चेक करें कि SSD/HDD डिटेक्ट हो रहा है या नहीं और Boot Order सही है या नहीं।</p>
+</div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #2980b9; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #2980b9; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🛠️ 2. स्टार्टअप रिपेयर और रीइंस्टॉल</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">Windows Recovery Environment में जाकर <b>Startup Repair</b> ट्राय करें। जरूरत पड़ने पर डेटा बैकअप लेकर OS रीइंस्टॉल करें।</p>
+</div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #27ae60; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #27ae60; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🏛️ 3. CCTNS ऑफिस दुमका तकनीकी सहायता</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">विशेषज्ञ मार्गदर्शन के लिए CCTNS Office Dumka में <b>Er. Bidhan Chandra Singh</b> से संपर्क करें।</p>
+</div>
+        """,
         "confidence": "High"
     },
     "beep": {
         "problem": "Motherboard se Beep aa rahi hai",
-        "solution": "Computer band karke power cable remove karein. RAM ko safely reseat karein aur zarurat par ek-ek RAM module se test karein. Dedicated GPU ki seating check karein. Beep pattern note karke motherboard/BIOS manual ke beep code se compare karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "solution": """
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #d35400; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #d35400; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🔔 1. रैम (RAM) और कंपोनेंट्स की जाँच</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">कंप्यूटर बंद करके पावर केबल निकालें। RAM मॉड्यूल को बाहर निकालकर उसके पिन को साफ करें और सही से दोबारा लगाएं। बीप पैटर्न नोट करके मदरबोर्ड मैन्युअल से मैच करें।</p>
+</div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #27ae60; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #27ae60; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🏛️ 2. CCTNS ऑफिस दुमका तकनीकी सहायता</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">यदि बीप साउंड बंद न हो, तो CCTNS Office Dumka में <b>Er. Bidhan Chandra Singh</b> से संपर्क करें।</p>
+</div>
+        """,
         "confidence": "High"
     },
     "shutdown": {
         "problem": "System achanak band ho jata hai",
-        "solution": "CPU/GPU temperature aur cooling fans check karein. Cabinet ki dust clean karein. UPS/SMPS aur power cable check karein. RAM reseat karke test karein. Windows Event Viewer mein unexpected shutdown errors check karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "solution": """
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #c0392b; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #c0392b; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🌡️ 1. कूलिंग और डस्ट क्लीनिंग</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">CPU/GPU का तापमान और कूलिंग फैन चेक करें (ओवरहीटिंग की वजह से ऐसा हो सकता है)। कैबिनेट की धूल साफ करें और थर्मल पेस्ट की जाँच करें।</p>
+</div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #27ae60; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #27ae60; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🏛️ 2. CCTNS ऑफिस दुमका तकनीकी सहायता</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">हार्डवेयर फॉल्ट होने पर CCTNS Office Dumka में <b>Er. Bidhan Chandra Singh</b> से संपर्क करें।</p>
+</div>
+        """,
         "confidence": "Medium"
     },
     "keyboard": {
         "problem": "Keyboard kaam nahi kar raha",
-        "solution": "Keyboard ko doosre USB port mein lagakar dekhein. Doosre keyboard se test karein. Wireless keyboard ho to battery aur receiver check karein. Device Manager mein keyboard device check karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "solution": """
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #2980b9; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #2980b9; margin-top: 0; margin-bottom: 12px; font-size: 18px;">⌨️ 1. पोर्ट और कनेक्शन जाँच</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">कीबोर्ड की USB केबल को दूसरे USB पोर्ट में लगाकर देखें या किसी दूसरे वर्किंग कीबोर्ड से टेस्ट करें। वायरलेस हो तो बैटरी और रिसीवर चेक करें।</p>
+</div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #27ae60; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #27ae60; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🏛️ 2. CCTNS ऑफिस दुमका तकनीकी सहायता</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">पोर्ट या ड्राइवर की समस्या के लिए CCTNS Office Dumka में <b>Er. Bidhan Chandra Singh</b> से संपर्क करें।</p>
+</div>
+        """,
         "confidence": "Medium"
     },
     "mouse": {
         "problem": "Mouse kaam nahi kar raha",
-        "solution": "Mouse ko doosre USB port mein lagakar dekhein. Doosre mouse se test karein. Wireless mouse ki battery aur receiver check karein. Optical sensor clean karein aur Device Manager check karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "solution": """
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #16a085; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #16a085; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🖱️️ 1. सेंसर और USB पोर्ट जाँच</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">माउस के नीचे का ऑप्टिकल सेंसर साफ करें। इसे दूसरे USB पोर्ट में प्लग करके चेक करें या दूसरे माउस से टेस्ट करें।</p>
+</div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #27ae60; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #27ae60; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🏛️️ 2. CCTNS ऑफिस दुमका तकनीकी सहायता</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">अतिरिक्त सहायता के लिए CCTNS Office Dumka में <b>Er. Bidhan Chandra Singh</b> से संपर्क करें।</p>
+</div>
+        """,
         "confidence": "Medium"
     },
     "time": {
         "problem": "Date/Time automatic badal raha hai",
-        "solution": "Windows Settings > Time & language > Date & time mein Set time automatically ON karein aur correct Time Zone select karein. Agar PC band hone ke baad time reset hota hai to CMOS/RTC battery, aam taur par CR2032, check/replace karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "solution": """
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #8e44ad; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #8e44ad; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🕒 1. विंडोज सेटिंग्स और CMOS बैटरी</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">Windows Settings > Time & language में जाकर <b>Set time automatically</b> ऑन करें। यदि पीसी बंद होने पर बार-बार समय रीसेट होता है, तो मदरबोर्ड की <b>CMOS Battery (CR2032)</b> बदलें।</p>
+</div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #27ae60; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #27ae60; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🏛️ 2. CCTNS ऑफिस दुमका तकनीकी सहायता</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">बैटरी बदलने या तकनीकी सहायता के लिए CCTNS Office Dumka में <b>Er. Bidhan Chandra Singh</b> से संपर्क करें।</p>
+</div>
+        """,
         "confidence": "High"
     },
     "usb": {
         "problem": "USB Port kaam nahi kar raha",
-        "solution": "Device ko doosre USB port mein lagakar test karein. Same port mein doosra known-good device test karein. Computer restart karein. Device Manager > Universal Serial Bus controllers mein warning/error check karein. Physical damage ho to technician ko dikhayein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
+        "solution": """
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #2980b9; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #2980b9; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🔌 1. डिवाइस मैनेजर और पोर्ट जाँच</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">डिवाइस को दूसरे पोर्ट में चेक करें। Device Manager > Universal Serial Bus controllers में जाकर ड्राइवर एरर चेक करें और रीस्टार्ट करें।</p>
+</div>
+<div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 6px solid #27ae60; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px;">
+    <h4 style="color: #27ae60; margin-top: 0; margin-bottom: 12px; font-size: 18px;">🏛️ 2. CCTNS ऑफिस दुमका तकनीकी सहायता</h4>
+    <p style="color: #2c3e50; font-size: 15px; line-height: 1.5;">फिजिकल डैमेज होने पर CCTNS Office Dumka में <b>Er. Bidhan Chandra Singh</b> से संपर्क करें।</p>
+</div>
+        """,
         "confidence": "Medium"
     }
 }
 
 st.markdown("---")
 
-st.header("Symptoms")
-st.write("System में जो problem है, उसे select करें:")
+st.markdown("### 🔍 Troubleshooting Symptoms")
+st.write("कृपया सिस्टम में आ रही समस्या (Symptom) को नीचे से चुनें:")
 
 col1, col2 = st.columns(2)
 
@@ -172,15 +261,15 @@ with col2:
     usb = st.checkbox("8. USB Port काम नहीं कर रहा?")
     shutdown = st.checkbox("9. Computer automatically shutdown हो रहा है?")
 
-st.markdown("---")
+st.markdown("<br>", unsafe_allow_html=True)
 
-if st.button("🔍 Diagnose Problem", use_container_width=True):
+if st.button("🔍 Diagnose Problem Now", use_container_width=True):
     
     # --- SMART VALIDATION ---
     if not (power or display or os_loading or keyboard or mouse or beep or time_change or usb or shutdown):
-        st.warning("⚠️ सिस्टम एकदम ठीक लग रहा है! कृपया Diagnose करने से पहले कम से कम एक Problem (Symptom) सेलेक्ट करें।")
+        st.warning("⚠️ कृपया समस्या का निदान करने के लिए कम से कम एक विकल्प (Symptom) चुनें!")
     else:
-        # --- LOCAL DIAGNOSIS LOGIC (No API Call Needed) ---
+        # --- LOCAL DIAGNOSIS LOGIC ---
         result = {}
         
         # Priority Checking
@@ -223,32 +312,32 @@ if st.button("🔍 Diagnose Problem", use_container_width=True):
         
         extra_html = ""
         if extra_solutions != "":
-            extra_html = f'<hr style="border: 1px dashed #AAAAAA; margin: 20px 0;"><h4 style="color: #D35400; margin-bottom: 12px; margin-top: 0px;">📌 अन्य चुनी गई समस्याओं के उपाय:</h4><ul style="color: #333333; font-size: 20px; line-height: 1.4;">{extra_solutions}</ul>'
+            extra_html = f'<div style="background: #FFFBEB; padding: 15px; border-radius: 8px; border: 1px solid #FDE68A; margin-top: 15px;"><h4 style="color: #B45309; margin: 0 0 8px 0; font-size: 16px;">📌 अन्य चुनी गई समस्याओं के त्वरित उपाय:</h4><ul style="color: #78350F; font-size: 15px; margin: 0; padding-left: 20px; line-height: 1.5;">{extra_solutions}</ul></div>'
         
-        # NOTE: For power problem, solution is HTML card blocks, so we don't wrap primary_solution in <p style="..."> if it's already a div block. But if it's other problems, it's plain text. Let's handle it cleanly:
-        if power:
-            solution_display = primary_solution
-        else:
-            solution_display = f'<p style="color: #111111; font-size: 22px; font-weight: 700; line-height: 1.4; margin-bottom: 5px;">{primary_solution}</p>'
-
-        html_ui = f"""<div style="background-color: #FFFFFF; padding: 25px; border-radius: 12px; border: 2px solid #27AE60; box-shadow: 0px 4px 15px rgba(0,0,0,0.1);">
-<h3 style="color: #27AE60; margin-top: 0px; margin-bottom: 15px;">🛠️️ Main Solution (मुख्य उपाय):</h3>
-{solution_display}
-{extra_html}
-<hr style="border: 1px solid #DDDDDD; margin: 20px 0;">
-<div style="background-color: #F8F9F9; padding: 15px; border-radius: 8px; border: 1px solid #EEEEEE;">
-<h4 style="color: #C0392B; margin: 0px 0px 8px 0px;">⚠️ Main Root Cause: <span style="color: #222222; font-weight: bold;">{primary_problem}</span></h4>
-<h4 style="color: #2980B9; margin: 0px;">🤖 AI Confidence: <span style="color: #222222; font-weight: bold;">{confidence}</span></h4>
-</div>
-</div>"""
+        html_ui = f"""
+        <div style="background-color: #FFFFFF; padding: 25px; border-radius: 14px; border: 1px solid #CBD5E1; box-shadow: 0 10px 25px rgba(0,0,0,0.06); margin-top: 20px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #F1F5F9; padding-bottom: 12px; margin-bottom: 20px;">
+                <h3 style="color: #2563EB; margin: 0; font-size: 20px;">🛠️ Main Solution (मुख्य उपाय)</h3>
+                <span style="background: #EFF6FF; color: #1D4ED8; padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 600;">Confidence: {confidence}</span>
+            </div>
+            
+            {primary_solution}
+            
+            {extra_html}
+            
+            <div style="background-color: #F8FAFC; padding: 14px 18px; border-radius: 8px; border: 1px solid #E2E8F0; margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #64748B; font-size: 14px;"><b>Primary Root Cause:</b> <span style="color: #EF4444; font-weight: 600;">{primary_problem}</span></span>
+            </div>
+        </div>
+        """
         
         st.markdown(html_ui, unsafe_allow_html=True)
 
 # --- FOOTER AUR DISCLAIMER ---
 st.markdown("<br><br>", unsafe_allow_html=True)
 st.markdown("""
-<div style="text-align: center; color: #555555; padding: 15px; border-top: 1px solid #DDDDDD; margin-top: 20px;">
-    <h4 style="margin: 0px; color: #27AE60; letter-spacing: 1px;">For IT Helpdesk Support - Dumka District</h4>
-    <p style="margin-top: 5px; font-size: 13px; font-style: italic;">⚠️ Disclaimer: Ye AI Assistant hai, official CCTNS data se connected nahi</p>
+<div style="text-align: center; color: #64748B; padding: 20px; border-top: 1px solid #CBD5E1; margin-top: 30px;">
+    <h4 style="margin: 0; color: #2563EB; font-size: 16px; letter-spacing: 0.5px;">For IT Helpdesk Support - Dumka District</h4>
+    <p style="margin-top: 4px; font-size: 12px; font-style: italic;">⚠️ Disclaimer: Ye AI Assistant hai, official CCTNS data se directly connected nahi.</p>
 </div>
 """, unsafe_allow_html=True)
