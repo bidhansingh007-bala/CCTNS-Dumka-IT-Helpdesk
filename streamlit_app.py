@@ -110,8 +110,6 @@ KNOWLEDGE_BASE = {
         """,
         "confidence": "High"
     },
-
-    },
     "display": {
         "problem": "Monitor par Display nahi aa raha",
         "solution": "Monitor power aur display cable check karein. HDMI/VGA/DisplayPort cable ko dobara connect karein. Monitor ka correct Input Source select karein. RAM ko safely reseat karke test karein. Dedicated GPU ho to uski seating aur power check karein. Possible ho to doosre monitor se test karein. CCTNS Office Dumka Er. Bidhan Chandra Singh se baat kar ke test karein.",
@@ -227,9 +225,15 @@ if st.button("🔍 Diagnose Problem", use_container_width=True):
         if extra_solutions != "":
             extra_html = f'<hr style="border: 1px dashed #AAAAAA; margin: 20px 0;"><h4 style="color: #D35400; margin-bottom: 12px; margin-top: 0px;">📌 अन्य चुनी गई समस्याओं के उपाय:</h4><ul style="color: #333333; font-size: 20px; line-height: 1.4;">{extra_solutions}</ul>'
         
+        # NOTE: For power problem, solution is HTML card blocks, so we don't wrap primary_solution in <p style="..."> if it's already a div block. But if it's other problems, it's plain text. Let's handle it cleanly:
+        if power:
+            solution_display = primary_solution
+        else:
+            solution_display = f'<p style="color: #111111; font-size: 22px; font-weight: 700; line-height: 1.4; margin-bottom: 5px;">{primary_solution}</p>'
+
         html_ui = f"""<div style="background-color: #FFFFFF; padding: 25px; border-radius: 12px; border: 2px solid #27AE60; box-shadow: 0px 4px 15px rgba(0,0,0,0.1);">
-<h3 style="color: #27AE60; margin-top: 0px; margin-bottom: 10px;">🛠️ Main Solution (मुख्य उपाय):</h3>
-<p style="color: #111111; font-size: 26px; font-weight: 900; line-height: 1.4; margin-bottom: 5px;">{primary_solution}</p>
+<h3 style="color: #27AE60; margin-top: 0px; margin-bottom: 15px;">🛠️️ Main Solution (मुख्य उपाय):</h3>
+{solution_display}
 {extra_html}
 <hr style="border: 1px solid #DDDDDD; margin: 20px 0;">
 <div style="background-color: #F8F9F9; padding: 15px; border-radius: 8px; border: 1px solid #EEEEEE;">
