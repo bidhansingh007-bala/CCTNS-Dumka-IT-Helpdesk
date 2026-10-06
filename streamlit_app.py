@@ -4,7 +4,7 @@ import os
 # Page ki setting
 st.set_page_config(
     page_title="CCTNS Dumka - IT Helpdesk Portal",
-    page_icon="🖥️",
+    page_icon="🖥️️",
     layout="wide"
 )
 
@@ -120,7 +120,7 @@ selected_tab = st.radio(
 # --- ALERT NOTICE BANNER ---
 st.markdown("""
 <div class="alert-banner">
-    <span>⚠️️</span> <b>Notice:</b> Unresolved hardware issues persisting for more than 48 hours must be escalated directly to the district technical cell.
+    <span>⚠️</span> <b>Notice:</b> Unresolved hardware issues persisting for more than 48 hours must be escalated directly to the district technical cell.
 </div>
 """, unsafe_allow_html=True)
 
@@ -132,7 +132,7 @@ if selected_tab == "🏠 Home":
             "solution": """
 <div style="background: #ffffff; padding: 20px; border-radius: 10px; border-left: 6px solid #EF4444; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 12px;">
     <h4 style="color: #DC2626; margin-top: 0; margin-bottom: 8px; font-size: 17px;">🔌 1. पावर सॉकेट, यूपीएस और पावर केबल की जाँच</h4>
-    <p style="color: #334155; font-size: 14px; line-height: 1.5; margin-bottom: 8px;">सुनिश्चित करें कि मुख्य पावर सॉकेट और यूपीएस (UPS) चालू हैं। दीवार के सॉकेट से यूपीएस और सीपीयू तक आने वाली पावर केबल कसकर जुड़ी हो।</p>
+    <p style="color: #334155; font-size: 14px; line-height: 1.5; margin-bottom: 8px;">सुनिश्चित करें कि मुख्य पावर सॉकेट और यूपीएस (UPS) चालू हैं। दीवार के सॉकेट से यूपीएस और सीपीयू तक आने वाली पावर केबल कसकर जुड़ी हो।</p>
     <div style="background: #F8FAFC; padding: 8px 12px; border-radius: 6px; border: 1px solid #E2E8F0; font-size: 13px; color: #475569;"><b>🔍 कैसे जाँचें:</b> सॉकेट में दूसरा उपकरण (जैसे चार्जर) लगाकर चेक करें। यूपीएस की इंडिकेटर लाइट चालू होनी चाहिए।</div>
 </div>
 <div style="background: #ffffff; padding: 20px; border-radius: 10px; border-left: 6px solid #F59E0B; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 12px;">
@@ -174,7 +174,7 @@ if selected_tab == "🏠 Home":
     <p style="color: #334155; font-size: 14px; line-height: 1.5;">अनावश्यक USB डिवाइस हटाकर BIOS में SSD/HDD डिटेक्शन चेक करें। Startup Repair ट्राय करें।</p>
 </div>
 <div style="background: #ffffff; padding: 20px; border-radius: 10px; border-left: 6px solid #10B981; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 12px;">
-    <h4 style="color: #059669; margin-top: 0; margin-bottom: 8px; font-size: 17px;">🏛️️ 2. तकनीकी सहायता</h4>
+    <h4 style="color: #059669; margin-top: 0; margin-bottom: 8px; font-size: 17px;">🏛️ 2. तकनीकी सहायता</h4>
     <p style="color: #334155; font-size: 14px; line-height: 1.5;">CCTNS Office Dumka में <b>Er. Bidhan Chandra Singh</b> से संपर्क करें।</p>
 </div>
             """,
@@ -198,7 +198,7 @@ if selected_tab == "🏠 Home":
             "problem": "System achanak band ho jata hai",
             "solution": """
 <div style="background: #ffffff; padding: 20px; border-radius: 10px; border-left: 6px solid #EF4444; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 12px;">
-    <h4 style="color: #DC2626; margin-top: 0; margin-bottom: 8px; font-size: 17px;">🌡 1. कूलिंग और डस्ट क्लीनिंग</h4>
+    <h4 style="color: #DC2626; margin-top: 0; margin-bottom: 8px; font-size: 17px;">🌡️ 1. कूलिंग और डस्ट क्लीनिंग</h4>
     <p style="color: #334155; font-size: 14px; line-height: 1.5;">CPU फैन और कूलिंग चेक करें (Overheating से बचाव)। कैबिनेट की धूल साफ करें।</p>
 </div>
 <div style="background: #ffffff; padding: 20px; border-radius: 10px; border-left: 6px solid #10B981; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 12px;">
@@ -212,7 +212,7 @@ if selected_tab == "🏠 Home":
             "problem": "Keyboard kaam nahi kar raha",
             "solution": """
 <div style="background: #ffffff; padding: 20px; border-radius: 10px; border-left: 6px solid #3B82F6; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 12px;">
-    <h4 style="color: #2563EB; margin-top: 0; margin-bottom: 8px; font-size: 17px;">⌨️️ 1. पोर्ट और कनेक्शन जाँच</h4>
+    <h4 style="color: #2563EB; margin-top: 0; margin-bottom: 8px; font-size: 17px;">⌨️ 1. पोर्ट और कनेक्शन जाँच</h4>
     <p style="color: #334155; font-size: 14px; line-height: 1.5;">कीबोर्ड को दूसरे USB पोर्ट में लगाएं या दूसरे कीबोर्ड से टेस्ट करें।</p>
 </div>
             """,
@@ -327,7 +327,7 @@ elif selected_tab == "📊 System Monitoring":
 elif selected_tab == "📜 Hardware History":
     st.markdown("### 📜 Hardware Maintenance & Repair History")
     st.write("पुराने हार्डवेयर रखरखाव, रिप्लेसमेंट और सर्विसिंग का रिकॉर्ड यहाँ देखा जा सकता है।")
-    st.warning("⚠️️ No recent hardware failure logs found for the current month.")
+    st.warning("⚠️ No recent hardware failure logs found for the current month.")
 
 elif selected_tab == "🔍 Quick Diagnosis":
     st.markdown("### 🔍 Quick AI Troubleshooting Assistant")
@@ -342,10 +342,33 @@ elif selected_tab == "📋 Reports":
     st.download_button(label="📥 Download Report (PDF)", data="Dummy Report Data", file_name="CCTNS_Dumka_Report.pdf")
 
 # --- FOOTER ---
+
+# --- FOOTER ---
 st.markdown("<br><br>", unsafe_allow_html=True)
+
 st.markdown("""
-<div style="text-align: center; color: #64748B; padding: 15px; border-top: 1px solid #CBD5E1; margin-top: 20px;">
-    <p style="margin: 0; font-size: 13px; font-weight: 600; color: #1E3A8A;">CCTNS IT Helpdesk Portal - Dumka District</p>
-    <p style="margin: 3px 0 0 0; font-size: 11px; font-style: italic;">Disclaimer: Designed for internal technical support operations.</p>
+<div style="
+    text-align: center;
+    color: #64748B;
+    padding: 15px;
+    border-top: 1px solid #CBD5E1;
+    margin-top: 20px;
+">
+    <p style="
+        margin: 0;
+        font-size: 13px;
+        font-weight: 600;
+        color: #1E3A8A;
+    ">
+        CCTNS IT Helpdesk Portal - Dumka District
+    </p>
+
+    <p style="
+        margin: 3px 0 0 0;
+        font-size: 11px;
+        font-style: italic;
+    ">
+        Disclaimer: Designed for internal technical support operations.
+    </p>
 </div>
 """, unsafe_allow_html=True)
